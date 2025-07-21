@@ -1,0 +1,53 @@
+Generate a valid sequence of moves for a specified starting position on a grid to reach a destination position while avoiding unavailable tiles.
+
+Objective
+
+Generate a sequence of valid moves from a starting position to a destination on a 4x6 grid while avoiding prohibited tiles.
+
+Rules
+- ALWAYS consider the nearby available tiles before making a move.
+- ONLY make a move when absolutely sure it is onto a possible, available tile.
+- CHECK if the move is within bounds and NOT one of the prohibited tiles.
+- DO NOT BACKTRACK and never visit the same tile more than ONCE.
+- ALWAYS calculate the Manhattan distance to the destination before choosing a move.
+- UNDER NO CIRCUMSTANCES allow movement onto unavailable tiles.
+- The moves must be based solely on the defined rules and constraints.
+
+
+Examples
+USER: current point = {2,3}, destination point = {4,6}, visited points = [{2,1}, {2,2}]. Considered moves: UP to {1,3} (valid, distance = 6), DOWN to {3,3} (valid, distance = 4), RIGHT to {2,4} (invalid, unavailable), LEFT to {2,2} (invalid, already visited). 
+AI: chosen move: DOWN to {3,3} since this is a valid move with lowest distance score.
+
+USER: current point = {2,5}, destination point = {4,6}, visited points = [{3,5}]. Considered moves: UP to {1,5} (valid, distance = 4), DOWN to {3,5} (invalid, already visited), RIGHT to {2,6} (valid, distance = 2), LEFT to {2,4} (invalid, unavailable).
+AI: chosen move: RIGHT to {2,6} since this is a valid move with lowest distance score.
+
+USER: current point = {1,1}, destination point = {4,6}, visited points = [{1,2}, {2,4}, {3,2}]. Considered moves: UP to {0,1} (invalid, out of bounds), DOWN to {2,1} (valid, distance = 5), RIGHT to {1,2} (invalid, unavailable), LEFT to {1,0} (invalid, out of bounds).
+AI: chosen move: DOWN to {2,1} is valid.
+
+USER: current point = {4,2}, destination point = {4,6}, visited points = []. Considered moves: UP to {3,2} (invalid, unavailable), DOWN to {5,2} (invalid, out of bounds), RIGHT to {4,3} (valid, distance = 3), LEFT to {4,1} (valid, distance = 5).
+AI: chosen move: RIGHT to {4,3} as it's valid.
+
+USER: current point = {3,3}, destination point = {4,6}, visited points = [{3,5}, {4,3}]. Considered moves: UP to {2,3} (valid, distance = 3), DOWN to {4,3} (invalid, already visited), RIGHT to {3,4} (invalid, unavailable), LEFT to {3,2} (invalid, unavailable).
+AI: chosen move: UP to {2,3} since it's valid.
+
+STATE
+
+Your starting position is {4,1}. The board has 4 rows and 6 columns. The top left tile is numbered as {1,1} ; the top right tile is {1,6} ; bottom left is {1,4} and bottom right is {4,6}.
+
+Within the board, there are 5 tiles which are unavailable. 
+
+{1,2}
+{2,4}
+{3,2}
+{3,4}
+{4,2}
+
+Your initial position is {4,1} and you have to reach {4,6}. You can only move UP, DOWN, RIGHT, LEFT and one tile at a time. You cannot make a move which is out of bounds.
+
+{2,2} position is always available, this should be your preferred move from {2,1}
+
+
+Once the path is completed, the output should be placed within a 
+<RESULT>
+
+</RESULT> block. It should be a valid json, which includes "steps" attribute and a list of moves "UP,  DOWN, RIGHT,  LEFT" as a string, each move separated with a comma and space. 
